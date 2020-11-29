@@ -1,0 +1,24 @@
+org_name = "chathura"
+version = "0.1.0"
+lockfile_version = "1.0.0"
+ballerina_version = "1.2.10"
+
+[[imports."chathura/etldemo:0.1.0"]]
+org_name = "ballerinax"
+name = "aws.s3"
+version = "0.11.0"
+
+[[imports."chathura/etldemo:0.1.0"]]
+org_name = "ballerinax"
+name = "googleapis.sheets4"
+version = "0.13.0"
+
+[[imports."chathura/etldemo:0.1.0"]]
+org_name = "ballerinax"
+name = "java.jdbc"
+version = "0.0.0"
+
+[[imports."chathura/etldemo:0.1.0"]]
+org_name = "samjs"
+name = "jregex"
+version = "0.3.0"

@@ -1,0 +1,12 @@
+[project]
+org-name= "chathura"
+version= "0.1.0"
+
+[dependencies]
+
+[platform] 
+target = "java8" 
+
+	[[platform.libraries]] 
+	path = "./javalibs/mysql-connector-java-5.1.47-bin.jar" 
+	modules = ["etldemo"]
