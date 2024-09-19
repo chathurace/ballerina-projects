@@ -1,0 +1,40 @@
+name: Pack and Release
+
+on:
+  workflow_dispatch:  # Manually trigger the workflow
+    inputs:
+        tag:
+          description: 'Tag for the release'
+          required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install GitHub CLI
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
+
+      # Zip files excluding issue_template.md
+      - name: Create a zip excluding issue_template.md
+        run: |
+          zip -r bal_project.zip . -x "./.github/ISSUE_TEMPLATE.md"
+
+      # Authenticate GitHub CLI using the default GitHub token
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      # Create a GitHub release using a manually provided tag
+      - name: Create GitHub Release
+        run: gh release create ${{ github.event.inputs.tag }} bal_project.zip --title "Release ${{ github.event.inputs.tag }}" --notes "Automated release notes"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Optionally upload additional assets
+      - name: Upload additional assets
+        run: gh release upload ${{ github.event.inputs.tag }} additional_asset.txt
